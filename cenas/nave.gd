@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	var vel = Vector2.ZERO
 	var rVel = .1
 	acc = 100.0
-	var v = Vector2( 0, Input.get_axis("move_frente", "move_tras"))
+	var v = Vector2( 0, Input.get_axis("ui_up", "ui_down"))
 	velocity += v.rotated(rotation) * acc * delta
 	velocity = velocity.limit_length(max_speed)
 	
