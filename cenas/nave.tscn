@@ -1,8 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccmfjeahffstp"]
+[gd_scene load_steps=5 format=3 uid="uid://ccmfjeahffstp"]
 
 [ext_resource type="Texture2D" uid="uid://cda7lv36baypd" path="res://img/rect281.png" id="1_jhtpi"]
+[ext_resource type="Script" path="res://cenas/nave.gd" id="1_lc4x5"]
+[ext_resource type="AudioStream" uid="uid://00jl4qkj5xqp" path="res://audio/shot.wav" id="3_ida8i"]
+[ext_resource type="AudioStream" uid="uid://ch8mnkptn234v" path="res://audio/shield.wav" id="4_xnwyk"]
 
-[node name="nave" type="Node2D"]
+[node name="Nave" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_lc4x5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_jhtpi")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+position = Vector2(0, -159)
+scale = Vector2(-1.04052, 0.722978)
+polygon = PackedVector2Array(0, 203.326, 9.61055, 235.138, 0, 226.839, -10.5716, 236.522)
+
+[node name="spawnBala" type="Node2D" parent="."]
+position = Vector2(0, -12)
+
+[node name="shot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ida8i")
+
+[node name="shield" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_xnwyk")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfhy3bnrl0txe"]
+
+[ext_resource type="Script" path="res://cenas/asteroid.gd" id="1_bo1ne"]
+[ext_resource type="Texture2D" uid="uid://ckbt47wqci0y4" path="res://img/asteroid.png" id="1_tgcqy"]
+[ext_resource type="AudioStream" uid="uid://bqwiraa4i2q80" path="res://audio/hit.wav" id="3_ess2u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nrvl8"]
+radius = 167.323
+
+[node name="asteroid" type="Area2D"]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_bo1ne")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tgcqy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+scale = Vector2(0.280001, 0.280001)
+shape = SubResource("CircleShape2D_nrvl8")
+
+[node name="hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ess2u")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,104 @@
+[gd_scene load_steps=10 format=3 uid="uid://bb07dwglav3hn"]
+
+[ext_resource type="Script" path="res://cenas/game.gd" id="1_3fk5c"]
+[ext_resource type="PackedScene" uid="uid://ccmfjeahffstp" path="res://cenas/nave.tscn" id="1_hi6mj"]
+[ext_resource type="PackedScene" uid="uid://dh34n4p0riaef" path="res://cenas/hud.tscn" id="3_0eugk"]
+[ext_resource type="AudioStream" uid="uid://dlyvk85u2vjqq" path="res://audio/slow-travel.wav" id="5_13ui1"]
+[ext_resource type="Script" path="res://cenas/asteroids.gd" id="5_od44d"]
+
+[sub_resource type="Curve2D" id="Curve2D_e6xr1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -83, -79, 0, 0, 0, 0, -72, 665, 0, 0, 0, 0, 1298, 674, 0, 0, 0, 0, 1284, -83, 0, 0, 0, 0, -82, -84)
+}
+point_count = 5
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i2elx"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 300, 1)
+direction = Vector3(0, 0, 0)
+spread = 0.0
+initial_velocity_min = -10.0
+initial_velocity_max = -10.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m46vt"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 300, 1)
+direction = Vector3(0, 0, 0)
+spread = 0.0
+initial_velocity_min = -20.0
+initial_velocity_max = -20.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 3.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_63mpe"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 300, 1)
+direction = Vector3(0, 0, 0)
+spread = 0.0
+initial_velocity_min = -30.0
+initial_velocity_max = -30.0
+gravity = Vector3(0, 0, 0)
+scale_min = 4.0
+scale_max = 5.0
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_3fk5c")
+
+[node name="hud" parent="." instance=ExtResource("3_0eugk")]
+
+[node name="balas" type="Node" parent="."]
+
+[node name="asteroids" type="Path2D" parent="."]
+curve = SubResource("Curve2D_e6xr1")
+script = ExtResource("5_od44d")
+
+[node name="spawnerAst" type="PathFollow2D" parent="asteroids"]
+position = Vector2(-83, -79)
+rotation = 1.55601
+
+[node name="Nave" parent="." instance=ExtResource("1_hi6mj")]
+visible = false
+position = Vector2(600, 300)
+
+[node name="spawnPlayer" type="Marker2D" parent="."]
+position = Vector2(600, 300)
+
+[node name="spawnAsteroids" type="Marker2D" parent="."]
+position = Vector2(600, 300)
+
+[node name="bg" type="Node2D" parent="."]
+process_mode = 3
+position = Vector2(1288, 248)
+
+[node name="p1" type="GPUParticles2D" parent="bg"]
+z_index = -100
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_i2elx")
+lifetime = 140.0
+preprocess = 280.0
+
+[node name="p2" type="GPUParticles2D" parent="bg"]
+z_index = -90
+amount = 250
+process_material = SubResource("ParticleProcessMaterial_m46vt")
+lifetime = 140.0
+preprocess = 280.0
+
+[node name="p3" type="GPUParticles2D" parent="bg"]
+z_index = -80
+position = Vector2(5, 38)
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_63mpe")
+lifetime = 140.0
+preprocess = 280.0
+
+[node name="musica" type="AudioStreamPlayer2D" parent="bg"]
+position = Vector2(-1288, -248)
+stream = ExtResource("5_13ui1")
+autoplay = true
+playback_type = 1
